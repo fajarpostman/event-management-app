@@ -197,9 +197,6 @@ http://localhost:8000/api/docs/redoc/
 ```bash
 http://localhost:8000/api/docs/swagger/
 ```
-
----
-
 ---
 
 ## License
