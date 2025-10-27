@@ -20,14 +20,18 @@ def home(request):
                 <p class="text-gray-500">Built with Django REST Framework & JWT Authentication</p>
             </div>
 
-            <div class="flex justify-center gap-4 mt-8">
+            <div class="flex flex-wrap justify-center gap-4 mt-8">
                 <a href="/api/docs/swagger/" 
                    class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl shadow-md transition">
                    Swagger UI
                 </a>
                 <a href="/api/docs/redoc/" 
                    class="px-6 py-3 bg-gray-800 hover:bg-gray-900 text-white rounded-xl shadow-md transition">
-                   Redoc
+                   ReDoc
+                </a>
+                <a href="/api/schemas/" 
+                   class="px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-xl shadow-md transition">
+                   Schema JSON
                 </a>
                 <a href="/admin" 
                    class="px-6 py-3 bg-amber-500 hover:bg-amber-600 text-white rounded-xl shadow-md transition">
@@ -36,7 +40,7 @@ def home(request):
             </div>
 
             <div class="pt-10 text-sm text-gray-500">
-                <p>Version 1.0 • Powered by Django 5 + DRF</p>
+                <p>Version 1.0 • Powered by Django 5 + DRF + Spectacular</p>
                 <p>&copy; 2025 Fajar Dwi Rianto</p>
             </div>
         </div>
