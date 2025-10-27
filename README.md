@@ -206,6 +206,6 @@ This project is licensed under the MIT license.
 ---
 
 ## Author
-**Fajar Dwi Rianto**
-📧 fajardwirianto3@gmail.com
-🌐 github.com/fajarpostman
+- **Fajar Dwi Rianto**
+- 📧 fajardwirianto3@gmail.com
+- 🌐 github.com/fajarpostman
