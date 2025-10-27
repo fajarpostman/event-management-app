@@ -1,19 +1,30 @@
 import pytest
-from django.contrib.auth import get_user_model
-from apps.event.models import Venue, Event
+from django.test import TestCase
+from apps.events.models import Venue, Event
 from apps.registrations.models import Registration
+from apps.users.models import User
 from django.utils import timezone
 from datetime import timedelta
 
-User = get_user_model()
+class RegistrationTest(TestCase):
+    def test_prevent_over_capacity(self):
+        v = Venue.objects.create(name='Test Venue', capacity=2)
+        
+        now = timezone.now()
+        e = Event.objects.create(
+            title='Test Event', 
+            venue=v, 
+            capacity=1,
+            start_date=now, 
+            end_date=now+timedelta(hours=3)
+        )
+        
+        u1 = User.objects.create_user('u1', 'u1@example.com', 'pass')
+        u2 = User.objects.create_user('u2', 'u2@example.com', 'pass')
 
-def test_prevent_over_capacity():
-    v = Venue.objects.create(name='V', capacity=2)
-    now = timezone.now()
-    e = Event.objects.create(title='E', slug='e', venue=v, capacity=1, start_date=now, end_date=now+timedelta(hours=3))
-    u1 = User.objects.create_user('u1', 'u1@example.com', 'pass')
-    u2 = User.objects.create_user('u2', 'u2@example.com', 'pass')
-
-    Registration.objects.create(attendee=u1, event=e)
-    with pytest.raises(Exception):
-        Registration.objects.create(attendee=u2, event=e)
+        Registration.objects.create(user=u1, event=e)
+        
+        with self.assertRaises(Exception):
+            Registration.objects.create(user=u2, event=e)
+            
+        self.assertEqual(Registration.objects.count(), 1)

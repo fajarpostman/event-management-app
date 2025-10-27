@@ -119,6 +119,7 @@ python manage.py runserver
 
 ### 10. Access the application
 - Django API: http://localhost:8000
+
 ---
 
 ## Docker Setup
@@ -146,6 +147,7 @@ docker-compose exec web python manage.py createsuperuser
 
 ## Testing Instructions
 
+### 1. Django's test runner or pytest:
 
 You can run the test suite using Django's test runner or pytest:
 ```bash
@@ -157,7 +159,19 @@ Or using pytest:
 docker-compose exec web pytest
 ```
 
-On python test
+### 2. Run Tests (Manual / Local)
+
+If you are running the app without Docker, use:
+```bash
+python manage.py test
+```
+
+Or, to see detailed coverage report:
+```bash
+coverage run manage.py test
+coverage report -m
+```
+
 ---
 
 ### API Endpoints Overview
