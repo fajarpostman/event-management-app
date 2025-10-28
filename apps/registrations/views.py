@@ -8,7 +8,7 @@ class RegistrationViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        if user.is_organizer:
+        if getattr(user, 'is_organizer', False):
             return Registration.objects.all()
         return Registration.objects.filter(attendee=user)
     

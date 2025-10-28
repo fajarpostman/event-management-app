@@ -1,8 +1,13 @@
 from rest_framework import serializers
+from django.core.exceptions import ValidationError
 from .models import Registration
 
 class RegistrationSerializer(serializers.ModelSerializer):
-    attendee = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
+    attendee = serializers.PrimaryKeyRelatedField(
+        read_only=True,
+        default=serializers.CurrentUserDefault()
+    )
+
     class Meta:
         model = Registration
         fields = ['id', 'attendee', 'event', 'created_at']
@@ -13,5 +18,9 @@ class RegistrationSerializer(serializers.ModelSerializer):
         validated_data['attendee'] = user
 
         reg = Registration(**validated_data)
-        reg.save()
+        try:
+            reg.save()
+        except ValidationError as e:
+            # Convert Django ValidationError menjadi DRF ValidationError agar jadi HTTP 400
+            raise serializers.ValidationError(e.message_dict if hasattr(e, 'message_dict') else e.messages)
         return reg

@@ -8,11 +8,14 @@ from rest_framework_simplejwt.tokens import RefreshToken
 class EventAPITests(APITestCase):
     def setUp(self):
         self.user = User.objects.create_user(username='testuser', password='testpass')
+        self.user.is_staff = True
+        self.user.is_organizer = True
+        self.user.save()
+
         refresh = RefreshToken.for_user(self.user)
         self.access_token = str(refresh.access_token)
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.access_token}')
         
-        # Create venue first
         self.venue = Venue.objects.create(
             name="Conference Hall",
             address="123 Main St",
@@ -29,9 +32,11 @@ class EventAPITests(APITestCase):
             "capacity": 200,
             "start_date": "2025-11-01T09:00:00Z",
             "end_date": "2025-11-01T17:00:00Z",
-            "venue": self.venue.id
+            "venue_id": self.venue.id
         }
         response = self.client.post(self.event_url, payload, format='json')
+        print("❌ STATUS:", response.status_code)
+        print("❌ RESPONSE:", response.data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Event.objects.count(), 1)
 

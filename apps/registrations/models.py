@@ -17,7 +17,7 @@ class Registration(models.Model):
         current_count = Registration.objects.filter(event=self.event).exclude(pk=self.pk).count()
         if current_count >= self.event.capacity:
             raise ValidationError("Event is full")
-        
+
     def save(self, *args, **kwargs):
         with transaction.atomic():
             self.clean()
