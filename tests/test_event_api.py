@@ -35,8 +35,6 @@ class EventAPITests(APITestCase):
             "venue_id": self.venue.id
         }
         response = self.client.post(self.event_url, payload, format='json')
-        print("❌ STATUS:", response.status_code)
-        print("❌ RESPONSE:", response.data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Event.objects.count(), 1)
 
