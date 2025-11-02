@@ -1,0 +1,13 @@
+Django>=5.0,<6.0
+djangorestframework
+djangorestframework-simplejwt
+psycopg2-binary
+drf-spectacular
+django-environ
+pytest
+pytest-django
+factory-boy
+faker
+django-cors-headers>=4.3.1
+gunicorn
+python-dotenv
